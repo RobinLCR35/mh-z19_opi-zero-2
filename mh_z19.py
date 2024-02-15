@@ -7,7 +7,6 @@ import serial
 import time
 import subprocess
 import traceback
-import getrpimodel
 import struct
 import platform
 import argparse
@@ -15,26 +14,18 @@ import sys
 import json
 import os.path
 
-import RPi.GPIO as GPIO
+import OPi.GPIO as GPIO
 
 # setting
 version = "3.1.3"
-pimodel        = getrpimodel.model()
-pimodel_strict = getrpimodel.model_strict()
 retry_count    = 3
 
 # exception
 class GPIO_Edge_Timeout(Exception):
   pass
 
-if os.path.exists('/dev/serial0'):
-  partial_serial_dev = 'serial0'
-elif pimodel == "3 Model B" or pimodel == "4 Model B" or pimodel_strict == "Zero W":
-  partial_serial_dev = 'ttyS0'
-else:
-  partial_serial_dev = 'ttyAMA0'
-
-serial_dev = '/dev/%s' % partial_serial_dev
+#TODO : important to use
+serial_dev = '/dev/ttyS5'
 #stop_getty = 'sudo systemctl stop serial-getty@%s.service' % partial_serial_dev
 #start_getty = 'sudo systemctl start serial-getty@%s.service' % partial_serial_dev
 
